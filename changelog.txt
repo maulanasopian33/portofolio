@@ -1,0 +1,81 @@
+LATEST UPDATES - 24 Januari 2026
+==============================
+
+12. PENINGKATAN KONTEN PROFIL
+   - Memperbarui data profil di `src/data/profile.ts` untuk mencerminkan peran "Full Stack Web Developer".
+   - Menulis ulang Bio agar lebih profesional, menekankan kemampuan Frontend & Backend serta fokus bisnis.
+   - Meningkatkan metrik statistik (Stats) agar lebih berdampak (Projects Delivered, Client Satisfaction).
+
+11. PERBAIKAN PROJECT DETAIL VIEW
+   - Memperbaiki bug "Project Detail tidak muncul" dengan menambahkan `v-if` guard.
+   - Menambahkan state loading sementara data sedang diambil.
+   - Memastikan animasi `fadeUp` berjalan lancar setelah data tersedia.
+
+10. REFACTORING KE DATA DINAMIS
+   - Membuat folder `src/data` untuk sentralisasi mock data (projects, techStack, services, experience, testimonials, profile).
+   - Membuat composable `usePortfolioData` untuk mengekspos data ke komponen.
+   - Refactor `HomeView`, `AboutView`, `ProjectsView` untuk menggunakan data dinamis alih-alih hardcoded.
+   - Refactor `ProjectDetailView` untuk mencari data proyek berdasarkan ID riil dari `projects.ts`.
+
+9. EKSPANSI APLIKASI PORTOFOLIO
+   - Page Transitions: Menambahkan animasi transisi (`fade` + `slide`) antar halaman menggunakan `<Transition>` di `App.vue`.
+   - Contact Page: Halaman kontak baru (`/contact`) dengan desain form modern dan interaktif.
+   - Project Detail Page: Dynamic route (`/projects/:id`) untuk menampilkan detail case study setiap proyek.
+   - 404 Page: Halaman "Not Found" kustom dengan desain kreatif.
+   - Routing Updates: Konfigurasi router untuk mendukung dynamic routes dan wildcard 404.
+
+8. PERBAIKAN SCROLLBAR GANDA
+   - Memperbaiki isu "Double Scrollbar" dengan mengubah `overflow` container menjadi `visible`.
+   - Mengembalikan kendali scrolling utama ke `body` document, membuat pengalaman scroll lebih smooth dan natural.
+
+7. PENGGUNAAN ICON PADA TECH STACK
+   - Mengganti teks pada Tech Stack Marquee dengan logo SVG resmi.
+   - Implementasi style modern untuk icon: grayscale default, color on hover.
+   - Menambahkan efek hover card (scale up + glow) untuk setiap tech item.
+   - Menggunakan CDN SimpleIcons untuk efisiensi render logo.
+
+6. PERBAIKAN ANIMASI HERO
+   - Memperbaiki bug "Hero text transparan" dengan memperbarui keyframes animasi `fadeUp`.
+   - Menambahkan definisi eksplisit `0%` (opacity: 0) dan `100%` (opacity: 1) pada animasi.
+   - Menambahkan `prefers-reduced-motion` untuk aksesibilitas, memastikan konten tetap terlihat jika user mematikan animasi.
+
+5. PERBAIKAN BUG LAYOUT HOME
+   - Memperbaiki isu "Hero section hilang" dengan menghapus `justify-content: center` pada container utama.
+   - Menambahkan `padding-top` agar konten tidak tertutup header.
+   - Mengubah `overflow: hidden` menjadi `overflow-x: hidden` agar scrolling vertikal tetap berfungsi normal.
+
+4. RESTRUKTURISASI KONTEN HOME & ABOUT
+   - Home Page:
+     - Tech Stack Marquee (animasi infinite scroll).
+     - Services Section (Grid layout dengan kartu glassmorphism).
+     - Featured Projects Preview (Teaser 2 proyek unggulan).
+     - CTA Section (Bagian penutup ajakan kolaborasi).
+   - About Page:
+     - Experience Timeline (Vertical history pekerjaan).
+     - Testimonials Section (Grid layout).
+   - Pemisahan CSS: Membuat `AboutView.css` untuk manajemen style yang lebih baik.
+
+3. PENINGKATAN UX & REFACTORING HOME
+   - Implementasi Custom Cursor dengan animasi trailing yang modern.
+   - Refactor: Memisahkan logic cursor ke composable (src/composables/useCustomCursor.ts).
+   - Refactor: Memisahkan style HomeView ke file CSS terpisah (src/views/HomeView.css).
+   - Menambahkan bagian "Stats" (Years Exp, Projects, Commitment) sebagai informasi pendukung.
+   - Perbaikan struktur kode pada HomeView.vue agar lebih bersih.
+
+2. MODERNISASI TAMPILAN HERO (HOME)
+   - Mendesain ulang Hero section di HomeView.vue dengan grid animation background.
+   - Implementasi animasi "fade-up" untuk entrance content.
+   - Peningkatan tipografi responsif (clamp functions).
+   - Penambahan efek "glow" pada background dan button primary.
+   - Redesain tombol CTA primary dan secondary agar lebih modern.
+
+1. INISIALISASI PROYEK & STRUKTUR PORTOFOLIO
+   - Instalasi Vue Router, Vitest, dan dependencies testing.
+   - Implementasi desain premium dark mode pada style.css dengan font 'Outfit'.
+   - Pembuatan struktur halaman: Home (Hero section), About, Projects.
+   - Pembuatan komponen layout: NavBar (Sticky, Backdrop blur), AppFooter.
+   - Konfigurasi routing di src/router/index.ts.
+   - Penambahan unit test untuk komponen NavBar (src/components/__tests__/NavBar.spec.ts).
+   - Membersihkan komponen default (delete HelloWorld.vue).
+
+Timestamp: 2026-01-24 15:10:00
