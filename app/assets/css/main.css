@@ -1,0 +1,363 @@
+/* ============================================================
+   GLOBAL STYLES — Maulana Sopian Portfolio
+   Design System: Premium Dark Mode + Outfit Font
+   ============================================================ */
+
+/* --- Google Fonts (fallback if nuxt.config head link not loaded) --- */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   ============================================================ */
+/* ============================================================
+   DARK MODE (default)
+   ============================================================ */
+:root,
+[data-theme="dark"] {
+  /* Backgrounds */
+  --bg-primary:    #0a0a0a;
+  --bg-secondary:  #111111;
+  --bg-card:       #161616;
+  /* Glass surfaces — dipakai untuk btn-secondary, tech items, dll */
+  --bg-glass:      rgba(255, 255, 255, 0.04);
+  --bg-glass-hover: rgba(255, 255, 255, 0.08);
+
+  /* Text */
+  --text-primary:   #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-accent:    #3b82f6;
+  --text-muted:     #52525b;
+
+  /* Borders */
+  --border-subtle:  #27272a;
+  --border-accent:  #3b82f6;
+  --border-glass:   rgba(255, 255, 255, 0.08);
+
+  /* Typography */
+  --font-main: 'Outfit', sans-serif;
+
+  /* Layout */
+  --container-width: 1200px;
+  --header-height:   80px;
+
+  /* Shadows */
+  --shadow-glow: 0 10px 40px -10px rgba(59, 130, 246, 0.4);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+
+  /* Section title gradient (dark: white → gray) */
+  --gradient-title: linear-gradient(to right, #ffffff 0%, #71717a 100%);
+}
+
+/* ============================================================
+   LIGHT MODE
+   ============================================================ */
+[data-theme="light"] {
+  /* Backgrounds */
+  --bg-primary:    #f4f6fb;
+  --bg-secondary:  #eaecf4;
+  --bg-card:       #ffffff;
+  --bg-glass:      rgba(0, 0, 0, 0.03);
+  --bg-glass-hover: rgba(0, 0, 0, 0.06);
+
+  /* Text */
+  --text-primary:   #0f172a;
+  --text-secondary: #64748b;
+  --text-accent:    #2563eb;
+  --text-muted:     #94a3b8;
+
+  /* Borders */
+  --border-subtle:  #dde1f0;
+  --border-accent:  #2563eb;
+  --border-glass:   rgba(0, 0, 0, 0.08);
+
+  --shadow-glow: 0 10px 40px -10px rgba(37, 99, 235, 0.25);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+
+  /* Section title gradient (light: dark navy → slate) */
+  --gradient-title: linear-gradient(to right, #0f172a 0%, #475569 100%);
+}
+
+/* ============================================================
+   CSS RESET
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  font-family: var(--font-main);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Section Headers */
+.section-subtitle {
+  color: var(--text-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  line-height: 1.15;
+  background: var(--gradient-title);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--text-accent);
+  color: #ffffff;
+  padding: 0.875rem 1.75rem;
+  border-radius: 50px;
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+  background-color: #2563eb;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-primary);
+  padding: 0.875rem 1.75rem;
+  border-radius: 50px;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 1rem;
+  border: 1px solid var(--border-glass);
+  background: var(--bg-glass);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background: var(--bg-glass-hover);
+  border-color: var(--border-subtle);
+  transform: translateY(-2px);
+}
+
+/* Tag / Badge */
+.tag {
+  display: inline-block;
+  background: rgba(59, 130, 246, 0.12);
+  color: var(--text-accent);
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  white-space: nowrap;
+}
+
+/* Glow Effect (reusable) */
+.glow-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-effect::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  transform: scale(0);
+  transition: transform 0.5s ease-out;
+  pointer-events: none;
+}
+
+.glow-effect:hover::after {
+  transform: scale(1);
+}
+
+/* ============================================================
+   SCROLLBAR CUSTOM
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-subtle);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* ============================================================
+   PAGE TRANSITIONS (from nuxt.config pageTransition)
+   ============================================================ */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* ============================================================
+   SCROLL REVEAL (IntersectionObserver)
+   Menggantikan animate-fade-up dengan CSS delay hardcoded
+   ============================================================ */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delay variants */
+.scroll-reveal[data-delay="1"] { transition-delay: 0.1s; }
+.scroll-reveal[data-delay="2"] { transition-delay: 0.2s; }
+.scroll-reveal[data-delay="3"] { transition-delay: 0.3s; }
+.scroll-reveal[data-delay="4"] { transition-delay: 0.4s; }
+.scroll-reveal[data-delay="5"] { transition-delay: 0.5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============================================================
+   LIGHT MODE — Overrides komprehensif untuk elemen yang
+   menggunakan rgba(255,255,255,x) hardcoded
+   ============================================================ */
+[data-theme="light"] body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Navbar */
+[data-theme="light"] .navbar {
+  background-color: rgba(244, 246, 251, 0.88) !important;
+  border-bottom-color: var(--border-subtle);
+}
+[data-theme="light"] .navbar--scrolled {
+  background-color: rgba(234, 236, 244, 0.97) !important;
+}
+[data-theme="light"] .mobile-menu {
+  background-color: rgba(244, 246, 251, 0.99) !important;
+}
+[data-theme="light"] .nav-cta {
+  background: var(--bg-glass) !important;
+  border-color: var(--border-subtle) !important;
+}
+
+/* Hero gradient text — override untuk heading spesifik pakai background variable */
+[data-theme="light"] .hero-highlight {
+  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 60%, #db2777 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* TechStack marquee fade edge */
+[data-theme="light"] .tech-stack-section::before {
+  background: linear-gradient(to right, var(--bg-primary), transparent) !important;
+}
+[data-theme="light"] .tech-stack-section::after {
+  background: linear-gradient(to left, var(--bg-primary), transparent) !important;
+}
+
+/* Resume page */
+[data-theme="light"] .resume-header {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+}
+[data-theme="light"] .resume-container {
+  box-shadow: 0 4px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Code blocks selalu gelap (cross-mode) */
+[data-theme="light"] .section-code {
+  background: #1e2330 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Footer availability */
+[data-theme="light"] .footer-bottom-inner {
+  border-top-color: var(--border-subtle);
+}

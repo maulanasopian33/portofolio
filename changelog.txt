@@ -1,3 +1,186 @@
+LATEST UPDATES - 13 April 2026 (Design Fix)
+============================================
+
+17. DESIGN AUDIT: PERBAIKAN WARNA & URUTAN KOMPONEN
+
+   ## CSS Design Tokens (main.css)
+   - Tambah variabel baru: --bg-glass, --bg-glass-hover, --border-glass, --text-muted, --gradient-title
+   - Dark mode: --gradient-title = white → gray; Light mode: --gradient-title = navy → slate
+   - btn-secondary border/bg diganti dari rgba(255,255,255,x) ke var(--border-glass)/var(--bg-glass)
+   - section-title menggunakan var(--gradient-title) agar responsive terhadap tema
+   - Light mode overrides diperluas: navbar opacity, hero-highlight gradient, marquee fade, resume, code blocks
+
+   ## Komponen yang Diperbaiki (rgba(255,255,255,x) → CSS variables)
+   - TagBadge.vue: variant "subtle" → var(--bg-glass) + border var(--border-subtle)
+   - ServicesGrid.vue: card bg → var(--bg-card), hover → var(--bg-secondary), shadow → var(--shadow-card)
+   - TechStackMarquee.vue: tech-item bg → var(--bg-card), hover → var(--bg-secondary)
+   - FeaturedProjects.vue: visual-number color → var(--border-subtle) (visible di kedua mode)
+   - AboutPreview.vue: identity-initials bg → var(--bg-secondary), color → var(--border-subtle)
+   - BlogPreview.vue: featured card gradient dihapus → var(--bg-card) dengan subtle box-shadow
+   - ProjectCard.vue: card-visual bg dari hardcoded hex → var(--bg-secondary)
+   - SkillsSection.vue: skill-bar-track → var(--border-subtle)
+   - TheNavbar.vue: nav-cta border/bg → var(--border-glass)/var(--bg-glass)
+   - about.vue: avatar-placeholder → var(--bg-secondary), initials → var(--border-subtle), quick-info → var(--bg-card), page-title gradient → var(--gradient-title)
+   - resume.vue: sidebar bg → var(--bg-secondary)
+
+   ## Perbaikan Urutan Komponen Homepage (UX Flow Fix)
+   Sebelum: Hero → TechStack → Services → Projects → AboutPreview → Blog → CTA
+   Sesudah: Hero → TechStack → AboutPreview → Services → Projects → Blog → CTA
+   Alasan: Visitor perlu mengenal SIAPA duluan sebelum melihat APA yang bisa dilakukan.
+   Flow baru mengikuti storytelling: Perkenalan → Kredibilitas → Kemampuan → Bukti → Expertise → CTA
+
+Timestamp: 2026-04-13 10:22:00
+
+LATEST UPDATES - 13 April 2026 (Content & Pages)
+=================================================
+
+16. PENAMBAHAN KONTEN BLOG, HALAMAN BARU, DAN KOMPONEN HOMEPAGE
+
+   ## Data Layer Baru
+   - data/blog-content.ts — konten lengkap 4 artikel blog (structure: heading, paragraph, code, list, callout)
+   - data/uses.ts — 6 kategori tools & setup (Hardware, Editor, Frontend, Backend, DevOps, Productivity)
+
+   ## Komponen Baru
+   - components/blog/ArticleContent.vue — renderer structured blog content (code block dengan syntax highlight, callout 3 varian, list dengan arrow indicator)
+   - components/home/AboutPreview.vue — snapshot bio + stats + CTA ke /about dan /resume
+   - components/home/BlogPreview.vue — preview 3 artikel terbaru di homepage dengan featured card
+
+   ## Halaman Baru
+   - pages/uses.vue (/uses) — Tools & Setup page 2-column grid, link ke uses.tech, CTA ke projects
+   - pages/blog/[slug].vue — Updatedˆ: konten nyata dari blog-content.ts via BlogArticleContent component
+
+   ## Update Homepage
+   - pages/index.vue — tambah <HomeAboutPreview /> dan <HomeBlogPreview /> antara FeaturedProjects dan CTA
+
+   ## Update Navigasi
+   - TheNavbar.vue — tambah "Uses" link
+   - TheFooter.vue — tambah "Uses" link
+
+Timestamp: 2026-04-13 10:12:00
+
+LATEST UPDATES - 13 April 2026 (Enhancement)
+=============================================
+
+15. PORTFOLIO ENHANCEMENT: FITUR DAN DESAIN PROFESIONAL
+   Penambahan besar-besaran fitur, halaman, dan komponen untuk meningkatkan kualitas portfolio.
+
+   ## Data Layer
+   - data/skills.ts — kategori skill (Frontend, Backend, DB, DevOps) dengan level 0-100
+   - data/blog.ts — 4 artikel blog dummy dengan metadata lengkap
+
+   ## Composables Baru
+   - composables/useScrollAnimation.ts — IntersectionObserver scroll reveal (menggantikan CSS delay hardcoded)
+   - composables/useCardTilt.ts — 3D perspective tilt pada hover (SSR safe)
+   - composables/useTheme.ts — Dark/Light mode toggle dengan localStorage persistence
+   - composables/useReadingProgress.ts — Progress bar 0-100 berdasarkan scroll
+
+   ## UI Components Baru
+   - components/ui/BackToTop.vue — tombol scroll ke atas, muncul setelah 400px
+   - components/ui/ReadingProgress.vue — slim progress bar gradient di atas viewport
+   - components/ui/ThemeToggle.vue — Sun/Moon icon dengan swap transition
+
+   ## Halaman Baru
+   - pages/blog/index.vue — Blog listing dengan featured grid + tag filter
+   - pages/blog/[slug].vue — Blog article detail dengan Article JSON-LD, prev/next nav
+   - pages/resume.vue — Web-based CV printable (Ctrl+P → PDF), 2-column layout
+
+   ## Update Komponen Existing
+   - components/home/HeroSection.vue — CTA direstrukturisasi: "Download CV" (primary), "Browse Projects" (secondary), "Let's Talk →" (tertiary)
+   - components/projects/ProjectCard.vue — 3D tilt effect, live demo/GitHub icon links, radial glow on hover
+   - components/about/SkillsSection.vue — BARU: tabbed skill categories dengan animated progress bar
+   - components/layout/TheNavbar.vue — tambah Blog nav link + ThemeToggle button
+   - components/layout/TheFooter.vue — tambah Blog/Resume links + availability indicator + "Nuxt 4" badge
+   - layouts/default.vue — tambah ReadingProgress + BackToTop + CustomCursor sebagai ClientOnly
+   - app.vue — tambah JSON-LD Person schema + theme init dari localStorage
+
+   ## SEO & Head
+   - pages/index.vue — ogImage, ogImageWidth/Height, twitterCard:summary_large_image
+   - pages/about.vue — ogImage, twitterCard
+   - pages/blog/[slug].vue — Article JSON-LD schema per artikel
+   - nuxt.config.ts — global meta: robots, viewport, theme-color, og:site_name, og:locale
+
+   ## CSS
+   - assets/css/main.css — Dark mode kubu :root/[data-theme="dark"], Light mode kubu [data-theme="light"]
+   - assets/css/main.css — .scroll-reveal class dengan IntersectionObserver (opacity + translateY)
+   - assets/css/main.css — stagger delay variants [data-delay="1..5"]
+   - assets/css/main.css — light mode overrides untuk navbar glassmorphism
+
+   ## Public Assets
+   - public/ASSETS-README.txt — panduan untuk menambahkan og-image.jpg dan CV PDF
+   - public/Maulana-Sopian-CV.pdf — PERLU DITAMBAHKAN MANUAL (placeholder)
+   - public/og-image.jpg — PERLU DITAMBAHKAN MANUAL (1200x630px)
+
+Timestamp: 2026-04-13 10:03:00
+
+LATEST UPDATES - 13 April 2026 (Fix)
+====================================
+
+14. PERBAIKAN STRUKTUR NUXT 4 & RESOLUSI ENOENT
+   - Restrukturisasi folder mengikuti standar Nuxt 4: memindahkan `pages/`, `components/`, `composables/`, `data/`, `layouts/`, `assets/`, `app.vue`, dan `error.vue` ke dalam folder `/app`.
+   - Resolusi error `ENOENT` pada `server/api/profile.get.ts` dengan menyelaraskan `srcDir` (melalui folder `/app`).
+   - Pembersihan konflik: memindahkan sisa boilerplate Vite (`index.html`, `vite.config.ts`, `tsconfig.app.json`, `tsconfig.node.json`) ke folder `_backup_vite/`.
+   - Konfigurasi: mengaktifkan `future: { compatibilityVersion: 4 }` di `nuxt.config.ts`.
+   - Sinkronisasi: menjalankan `nuxi prepare` untuk regenerasi tipe TypeScript.
+
+Timestamp: 2026-04-13 09:37:00
+
+LATEST UPDATES - 13 April 2026
+   - Konversi penuh dari Vue 3 + Vite (SPA/CSR) ke Nuxt.js 3 dengan SSR enabled
+   - Dibuat struktur folder profesional: pages/, layouts/, components/{layout,ui,home,projects,about,certificates,contact}/, composables/, data/, assets/css/, server/api/
+   - Routing diubah ke file-based routing Nuxt: pages/index.vue, pages/about.vue, pages/contact.vue, pages/certificates.vue, pages/projects/index.vue, pages/projects/[id].vue, pages/[...slug].vue
+   - Dibuat layouts/default.vue menggantikan App.vue (TheNavbar + slot + TheFooter + ClientOnly CustomCursor)
+   - router-link diganti menjadi NuxtLink di seluruh komponen
+   - router.push('/404') diganti dengan createError({ statusCode: 404, fatal: true })
+   - Dibuat error.vue untuk Nuxt runtime error handling
+   - File yang disentuh: nuxt.config.ts (baru), app.vue (baru), package.json (diperbarui ke Nuxt 3), tsconfig.json (extend .nuxt/tsconfig.json)
+
+   ## SEO
+   - Implementasi useSeoMeta() per halaman dengan title, description, og:*, twitter:*
+   - Halaman dynamic /projects/[id] menggunakan meta tag dinamis dari data project
+   - canonical URL per halaman
+   - robots.txt di public/
+   - Semantic HTML: <nav>, <main>, <article>, <section>, <header>, <footer>, <blockquote>, <time>
+   - html lang="id" global lewat nuxt.config.ts
+
+   ## CSS & Assets
+   - Konsolidasi semua @keyframes ke assets/css/animations.css (single source of truth)
+   - Global styles direfaktor ke assets/css/main.css
+   - CSS scoped per komponen (menghilangkan file CSS terpisah seperti HomeView.css, AboutView.css, dll)
+
+   ## Komponen Baru
+   - components/ui/CustomCursor.vue (dipisah dari HomeView, dibungkus ClientOnly)
+   - components/ui/SectionHeader.vue (reusable atom)
+   - components/ui/TagBadge.vue (3 variants: default, outline, subtle)
+   - components/home/ — 5 komponen: HeroSection, TechStackMarquee, ServicesGrid, FeaturedProjects, CtaSection
+   - components/projects/ — ProjectCard, ProjectMeta
+   - components/about/ — ExperienceTimeline, TestimonialsGrid
+   - components/certificates/ — CertificateCard (dengan badgeColor dinamis per issuer)
+   - components/contact/ — ContactForm (form state dipisah ke composable)
+   - components/layout/TheNavbar.vue — ditambahkan Certificates ke navbar, mobile hamburger menu, scroll-aware glassmorphism
+   - components/layout/TheFooter.vue — 3-column layout, semua links termasuk Certificates
+
+   ## Composables
+   - composables/usePortfolioData.ts — diperluas dengan getProjectsByCategory(), API-ready patterns dalam komentar
+   - composables/useCustomCursor.ts — ditambahkan SSR guard process.client, cancelAnimationFrame, isVisible state
+   - composables/useContactForm.ts — BARU: logic form dipisah dari ContactView, $fetch API pattern dalam komentar
+
+   ## Data Layer
+   - data/projects.ts — tambah liveUrl, repoUrl fields + API pattern komentar
+   - data/profile.ts — tambah email, location, socials fields + API pattern komentar
+   - data/certificates.ts — tambah badgeColor field + API pattern komentar
+   - data/services.ts — tambah id, highlights fields
+   - data/experience.ts — tambah location, tech fields
+   - data/testimonials.ts — tambah rating field
+
+   ## Server API Stubs (tidak aktif)
+   - server/api/projects/index.get.ts — GET semua projects
+   - server/api/projects/[id].get.ts — GET project by ID
+   - server/api/profile.get.ts — GET profile
+   - server/api/certificates/index.get.ts — GET semua certificates
+   - server/api/contact.post.ts — POST form kontak (3 opsi email service dalam komentar)
+
+Timestamp: 2026-04-13 09:00:00
+
 LATEST UPDATES - 24 Januari 2026
 ==============================
 

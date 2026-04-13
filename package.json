@@ -1,27 +1,17 @@
 {
   "name": "maulana-sopian",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview",
-    "test": "vitest run --environment jsdom"
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "vue": "^3.5.24"
-  },
-  "devDependencies": {
-    "@types/node": "^24.10.1",
-    "@vitejs/plugin-vue": "^6.0.1",
-    "@vue/test-utils": "^2.4.6",
-    "@vue/tsconfig": "^0.8.1",
-    "jsdom": "^27.4.0",
-    "typescript": "~5.9.3",
-    "vite": "^7.2.4",
-    "vitest": "^4.0.18",
-    "vue-router": "^4.6.4",
-    "vue-tsc": "^3.1.4"
+    "nuxt": "^4.4.2",
+    "vue": "^3.5.32",
+    "vue-router": "^5.0.4"
   }
 }
